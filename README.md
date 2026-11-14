@@ -40,4 +40,4 @@ Only you move cards to Ready to build and to Done. `grill` and `build` only act 
 
 ## License
 
-MIT. `grill` is adapted from Matt Pocock's [mattpocock/skills](https://github.com/mattpocock/skills), also MIT.
+MIT (`LICENSE`). `grill` is adapted from Matt Pocock's [mattpocock/skills](https://github.com/mattpocock/skills), also MIT; his notice is in `NOTICE`.
