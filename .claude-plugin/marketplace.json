@@ -1,0 +1,14 @@
+{
+  "name": "simple-agentic-agile-flow",
+  "description": "The simple-agentic-agile-flow plugin for Claude Code.",
+  "owner": {
+    "name": "Chris Waalberg"
+  },
+  "plugins": [
+    {
+      "name": "simple-agentic-agile-flow",
+      "source": "./",
+      "description": "A lightweight agile flow for Claude Code: ideas on a board, grilled into specs, built when you say go, approved by you."
+    }
+  ]
+}

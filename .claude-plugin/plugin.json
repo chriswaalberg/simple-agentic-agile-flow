@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "simple-agentic-agile-flow",
+  "version": "0.1.0",
+  "description": "A lightweight agile flow for Claude Code: ideas on a board, grilled into specs, built when you say go, approved by you.",
+  "author": {
+    "name": "Chris Waalberg"
+  },
+  "keywords": [
+    "agile",
+    "kanban",
+    "workflow",
+    "github-projects",
+    "spec"
+  ],
+  "license": "MIT",
+  "repository": "https://github.com/chriswaalberg/simple-agentic-agile-flow"
+}
