@@ -7,7 +7,7 @@ description: Builds every card in "Ready to build", top to bottom, until each is
 
 Read the Ready to build column once, with all card bodies, and take the cards top to bottom. Build cards that touch the same files one after the other.
 
-Prefer finishing a card (On staging, or parked with its question) before starting the next one: half-built cards in one checkout pile up uncommitted and the board falls behind. While a long run blocks the machine (a measurement, a bot sweep), use the wait to read and plan the next card rather than to build it. A card that is independent and code-only can go to its own session instead, so it ends in its own commit; cards that measure performance or balance share the machine and are better run one after the other. Your call per card.
+Keep each card in its own checkout (its own worktree, or its own session), so it can be committed and pushed on its own: cards mixed in one checkout can't ship separately, stay uncommitted and the board falls behind. Working on several cards at once is fine that way. Cards that measure performance or balance share the machine, so prefer running those one after the other. Whether a card gets its own session is your call.
 
 With more than three cards and no goal active: before the first card, ask one question with buttons, using the host's question tool (never as text between tool calls, where it scrolls out of sight): "Keep building until every card is On staging or waits on a question?", with the buttons "Keep building" and "Card by card". When the user says they are stepping away, don't ask; take it as "Keep building".
 
