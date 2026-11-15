@@ -7,11 +7,9 @@ description: Builds every card in "Ready to build", top to bottom, until each is
 
 Read the Ready to build column once, with all card bodies, and take the cards top to bottom. Build cards that touch the same files one after the other.
 
-With more than three cards, or when the user says they are stepping away, and no goal is active: before the first card, suggest a goal once and give the line to paste, then start without waiting:
+With more than three cards and no goal active: before the first card, ask one question with buttons, using the host's question tool (never as text between tool calls, where it scrolls out of sight): "Keep building until every card is On staging or waits on a question?", with the buttons "Keep building" and "Card by card". When the user says they are stepping away, don't ask; take it as "Keep building".
 
-```
-/goal build every card in Ready to build with the build skill; done when each card is On staging or waits on a question for the user, or after 40 turns
-```
+On "Keep building": a card that waits on the user does not end your turn. Park its question, go on with the next card, and ask all parked questions together at the end, each with buttons. Stop after 40 turns.
 
 For each card:
 

@@ -32,7 +32,7 @@ Only you move cards to Ready to build and to Done. `grill` and `build` only act 
 
 ## Tips
 
-- For a long list, or when you step away, start with a [goal](https://code.claude.com/docs/en/goal) instead of "build", so a separate model checks after every turn whether the work is done and Claude keeps going until it is. `build` suggests the line when it fits: `/goal build every card in Ready to build with the build skill; done when each card is On staging or waits on a question for the user, or after 40 turns`. Use it in auto mode, otherwise Claude still stops to ask permission. `/goal` shows the status, `/goal clear` stops it.
+- For a long list, or when you step away, start with a [goal](https://code.claude.com/docs/en/goal) instead of "build", so a separate model checks after every turn whether the work is done and Claude keeps going until it is. With more than three cards, `build` asks at the start, with buttons, whether to keep building until every card is On staging or waits on a question; on yes it parks questions and asks them together at the end. For the stricter goal, type it yourself: `/goal build every card in Ready to build with the build skill; done when each card is On staging or waits on a question for the user, or after 40 turns`. Use it in auto mode, otherwise Claude still stops to ask permission. `/goal` shows the status, `/goal clear` stops it.
 
 ## Credits
 
