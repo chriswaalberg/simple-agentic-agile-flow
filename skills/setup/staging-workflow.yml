@@ -1,5 +1,5 @@
 # Every push to the main branch: run the checks and build once, put that build on staging
-# (<owner>.github.io/<repo>-staging/) and, after approval, exactly that build live.
+# (the Pages address of <owner>/<repo>-staging) and, after approval, exactly that build live.
 # Approve: the environment github-pages has a required reviewer; GitHub sends a notification and the run
 # waits. A newer push cancels a waiting run, so you always approve the version that is on staging.
 # A push with only .md files doesn't run.
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: https://<owner>.github.io/<repo>-staging/
+      url: <staging URL>
     steps:
       - uses: actions/download-artifact@v8
         with:
@@ -65,7 +65,7 @@ jobs:
             commit -q -m "Version $VERSION ($GITHUB_SHA)"
           GIT_SSH_COMMAND='ssh -i ~/deploy_key -o StrictHostKeyChecking=accept-new' \
             git push -q --force git@github.com:<owner>/<repo>-staging.git gh-pages
-          echo "Version $VERSION is on staging: https://<owner>.github.io/<repo>-staging/" >> "$GITHUB_STEP_SUMMARY"
+          echo "Version $VERSION is on staging: <staging URL>" >> "$GITHUB_STEP_SUMMARY"
 
   production:
     needs: [build, staging]

@@ -41,8 +41,8 @@ Otherwise propose a lightweight staging repo on GitHub Pages: a second, private 
 
 1. `gh repo create <owner>/<repo>-staging --private --description "Staging of <repo>: filled by the Pages workflow of <owner>/<repo>. Don't edit by hand."`
 2. A key pair just for this (`ssh-keygen -t ed25519 -N "" -f <scratch>/staging_key`): the public key as a deploy key with write access on the staging repo (`gh repo deploy-key add --allow-write`), the private key as the secret `STAGING_DEPLOY_KEY` in the main repo (`gh secret set`). Delete both files afterwards.
-3. Add `staging-workflow.yml` (next to this skill) as `.github/workflows/pages.yml`, with the project's checks and build filled in. A site without a build copies its public files into a folder; paths must be relative, because staging lives in a subfolder (`<owner>.github.io/<repo>-staging/`).
-4. Push it. The first run puts a `gh-pages` branch in the staging repo; turn on Pages there from that branch.
+3. Add `staging-workflow.yml` (next to this skill) as `.github/workflows/pages.yml`, with the project's checks and build filled in. A site without a build copies its public files into a folder; keep paths relative, so the same build works on staging and live.
+4. Push it. The first run puts a `gh-pages` branch in the staging repo, and GitHub turns on Pages from it. A private repo gets private Pages: a generated address (`gh api repos/<owner>/<repo>-staging/pages --jq .html_url`) that only people with access to the repo can open, after a GitHub login. That address is the staging URL; put it in the workflow.
 5. Create the environment `github-pages` in the main repo with the user as required reviewer (`gh api -X PUT repos/<owner>/<repo>/environments/github-pages` with `reviewers`).
 6. Last, only when staging is green: switch the main repo's Pages source to GitHub Actions (`gh api -X PUT repos/<owner>/<repo>/pages -f build_type=workflow`); a custom domain stays. Until then the live site keeps running as it did. Run the workflow once (`gh workflow run pages.yml`), let the user approve, and check the live site.
 
