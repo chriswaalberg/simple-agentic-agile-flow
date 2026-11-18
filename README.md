@@ -1,43 +1,52 @@
 # simple-agentic-agile-flow
 
-A lightweight agile flow for Claude Code. Ideas go on a board, Claude grills each one into a spec, builds what you approve, and you sign off on staging.
+A lightweight agile flow for Claude Code. Ideas go on a board, Claude grills each one into a spec and builds what you approve, and you sign off on staging.
 
 ```
 Inbox ─grill─▶ Specified ─you drag─▶ Ready to build ─build─▶ In progress ─push─▶ On staging ─you approve─▶ Done
 ```
 
-It follows Anthropic's [best practices for Claude Code](https://code.claude.com/docs/en/best-practices): interview to a spec, give Claude a check to run, keep hard rules in a hook, and let a person approve the result. How to split the work (subagents, sessions, worktrees) is left to Claude.
+Only you move cards to Ready to build and to Done. The flow follows Anthropic's [best practices for Claude Code](https://code.claude.com/docs/en/best-practices).
+
+## Get started
+
+1. Add the marketplace:
+
+   ```
+   /plugin marketplace add chriswaalberg/simple-agentic-agile-flow
+   ```
+
+2. Install the plugin, for all your projects:
+
+   ```
+   /plugin install simple-agentic-agile-flow@simple-agentic-agile-flow
+   ```
+
+   Or for one project: add `--scope project` and commit the `.claude/settings.json` it creates. Then every checkout and worktree of that project has the plugin.
+
+3. In each project where you want the flow, start a new session and run `/simple-agentic-agile-flow:setup`. It creates the board and a Board section in `CLAUDE.md`. `grill` and `build` only work in projects with that section.
 
 ## Skills
 
 | Skill | Start with | What it does |
 |---|---|---|
-| `setup` | `/simple-agentic-agile-flow:setup` | Creates the board (GitHub Projects or Notion) with its columns and labels, optionally a pre-push hook for your checks, and a short Board section in the project's `CLAUDE.md`. That section is where the flow and its rules live. |
-| `grill` | "grill <card>", "grill the inbox", or a new idea | Interviews you in rounds of numbered questions, each with a recommended answer, until the card holds decisions, tasks and one line of proof. On your go it moves to Specified. |
-| `build` | "build" | Takes every card in Ready to build, top to bottom: tests, the proof, `/code-review` (and `/simplify`, `/verify` where they fit), push, card to On staging. Stops on a card with an open taste choice; the rest goes on. |
-
-Only you move cards to Ready to build and to Done. `grill` and `build` only act in projects whose `CLAUDE.md` has the Board section, so you can install the plugin once and use it where you want.
-
-## Install
-
-```
-/plugin marketplace add chriswaalberg/simple-agentic-agile-flow
-/plugin install simple-agentic-agile-flow@simple-agentic-agile-flow
-```
+| `setup` | `/simple-agentic-agile-flow:setup` | Creates the board (GitHub Projects or Notion), the Board section in `CLAUDE.md`, and optionally a pre-push hook for your checks. |
+| `grill` | "grill <card>", "grill the inbox", or a new idea | Asks you questions in rounds, each with a recommended answer, until the card is a spec. On your go it moves to Specified. |
+| `build` | "build" | Builds every card in Ready to build, top to bottom: tests, review, push, card to On staging. Skips a card that waits on a choice from you. |
 
 ## Requirements
 
-- GitHub Projects: the `gh` CLI with the `project` scope (`gh auth refresh -s project`), and a local session: Claude Code cloud sessions can't reach GitHub Projects.
+- GitHub Projects: the `gh` CLI with the `project` scope (`gh auth refresh -s project`), in a local session (cloud sessions can't reach GitHub Projects).
 - Notion: the Notion connector.
 
-## Tips
+## Tip
 
-- For a long list, or when you step away, start with a [goal](https://code.claude.com/docs/en/goal) instead of "build", so a separate model checks after every turn whether the work is done and Claude keeps going until it is. With more than three cards, `build` asks at the start, with buttons, whether to keep building until every card is On staging or waits on a question; on yes it parks questions and asks them together at the end. For the stricter goal, type it yourself: `/goal build every card in Ready to build with the build skill; done when each card is On staging or waits on a question for the user, or after 40 turns`. Use it in auto mode, otherwise Claude still stops to ask permission. `/goal` shows the status, `/goal clear` stops it.
+For a long list, or when you step away, start with a [goal](https://code.claude.com/docs/en/goal) instead of "build", in auto mode:
 
-## Credits
+```
+/goal build every card in Ready to build with the build skill; done when each card is On staging or waits on a question for the user, or after 40 turns
+```
 
-`grill` is based on Matt Pocock's `grilling` skill, the interview behind his `grill-me` ([mattpocock/skills](https://github.com/mattpocock/skills)).
+## Credits and license
 
-## License
-
-MIT (`LICENSE`). `grill` is adapted from Matt Pocock's [mattpocock/skills](https://github.com/mattpocock/skills), also MIT; his notice is in `NOTICE`.
+MIT (`LICENSE`). `grill` is adapted from Matt Pocock's `grilling` skill in [mattpocock/skills](https://github.com/mattpocock/skills), also MIT; his notice is in `NOTICE`.
