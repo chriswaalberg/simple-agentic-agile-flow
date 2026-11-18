@@ -14,6 +14,7 @@ Look up what you can first, then ask only what is left, each with your recommend
 - For a new board: owner and title (default: the repo's owner and name).
 - Who approves: the name for "only <name> moves cards to Ready to build and Done".
 - Staging: the URL where built work is approved. If the project has none, propose a staging repo (step 3).
+- How a card gets to staging: pushed straight to the main branch (recommended; you approve on staging), or optionally a branch and a pull request per card that <name> merges, for a check before staging.
 - The checks (typecheck, tests) and whether a pre-push hook should run them: recommended, with only the fast ones when CI runs the rest.
 
 ## 2. The board
@@ -64,7 +65,7 @@ This project uses simple-agentic-agile-flow (skills `grill` and `build`). The bo
 - Read and move cards: <the exact commands or tools, with the ids>. <GitHub: Status is leading, not open/closed; run grill and build in a local session, cloud sessions can't reach GitHub Projects. | Notion: set Status, Type and the name as properties, not in the content, and read them back.>
 - Open issues in <owner>/<repo> that are not on the board are a second inbox: grill takes them after the Inbox. On go the issue <itself goes on the board as Specified | becomes a card with the issue as Source>. At each step (Specified, On staging with the version, Done) post one short comment on the issue in plain language, so whoever filed it can follow; at Done close the issue.
 - Something Claude finds on its own (a bug outside the task, a review finding) becomes a full card with its source: straight to Specified when it holds no choice for <name>, otherwise to the Inbox with the open questions on top. A card <name> says no to is removed.
-- Checks: <commands>; <the pre-push hook and how to install it, if any>. Staging: <how a push gets there, the URL, how the version shows>. Committing and pushing to staging never needs asking; production is <name>'s approval.
+- Checks: <commands>; <the pre-push hook and how to install it, if any>. Staging: <how a push gets there, the URL, how the version shows>. <Straight: committing and pushing to staging never needs asking. | PR: each card is a branch and a pull request; <name> merges it, which puts it on staging.> Production is <name>'s approval.
 ```
 
 ## 6. Finish

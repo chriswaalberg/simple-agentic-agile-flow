@@ -39,13 +39,15 @@ Only you move cards to Ready to build and to Done. The flow follows Anthropic's 
 - GitHub Projects: the `gh` CLI with the `project` scope (`gh auth refresh -s project`), in a local session (cloud sessions can't reach GitHub Projects).
 - Notion: the Notion connector.
 
-## Tip
+## Tips
 
-For a long list, or when you step away, start with a [goal](https://code.claude.com/docs/en/goal) instead of "build", in auto mode:
+- Want to check each card before it reaches staging? Answer "a pull request per card" in `setup`, or write in the Board section: "each card is a branch and a pull request; <name> merges it, which puts it on staging". `build` then opens a PR instead of pushing.
 
-```
-/goal build every card in Ready to build with the build skill; done when each card is On staging or waits on a question for the user, or after 40 turns
-```
+- For a long list, or when you step away, start with a [goal](https://code.claude.com/docs/en/goal) instead of "build", in auto mode:
+
+  ```
+  /goal build every card in Ready to build with the build skill; done when each card is On staging or waits on a question for the user, or after 40 turns
+  ```
 
 ## Credits and license
 
