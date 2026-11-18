@@ -5,7 +5,7 @@ description: Turns an idea or an Inbox card into a full spec on the board by int
 
 # Grill
 
-A new idea first becomes a card in the Inbox (a title and one line), so it is never lost. "Grill the inbox" takes those cards one at a time, top to bottom.
+A new idea first becomes a card in the Inbox (a title and one line), so it is never lost. "Grill the inbox" takes those cards one at a time, top to bottom, and then the open issues that are not on the board yet, when the Board section names them as a second inbox.
 
 For an existing card, first look up what was already decided (the card, the documents it points to, the git log) and grill only the open points. Open with three to five sentences: what the card is for, what is decided and built, what is still open.
 
@@ -55,4 +55,4 @@ Write the result as the card, in plain language that someone who doesn't know th
 <Optional: technical pointers, files, pitfalls.>
 ```
 
-Show it and ask for go. On go: put it on the card, label it Grilled and move it to Specified. Don't build.
+Show it and ask for go. On go: put it on the card, label it Grilled and move it to Specified; for an issue, also post the comment the Board section asks for. Don't build.

@@ -1,0 +1,83 @@
+# Every push to the main branch: run the checks and build once, put that build on staging
+# (<owner>.github.io/<repo>-staging/) and, after approval, exactly that build live.
+# Approve: the environment github-pages has a required reviewer; GitHub sends a notification and the run
+# waits. A newer push cancels a waiting run, so you always approve the version that is on staging.
+# A push with only .md files doesn't run.
+name: Pages
+
+on:
+  push:
+    branches: [<main>]
+    paths-ignore: ['**/*.md']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # the version is the number of commits
+      # <The project's checks and build, for example:>
+      # - uses: actions/setup-node@v7
+      #   with: { node-version: 26, cache: npm }
+      # - run: npm ci && npm test && npm run build
+      # <A site without a build: copy its public files into a folder, for example>
+      # - run: mkdir _site && cp -r index.html style.css assets _site/
+      - id: version
+        run: echo "version=$(git rev-list --count HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: <build folder>
+
+  staging:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://<owner>.github.io/<repo>-staging/
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: github-pages
+      # One fresh commit on the gh-pages branch of <owner>/<repo>-staging; that repo serves it.
+      - name: To <owner>/<repo>-staging
+        env:
+          DEPLOY_KEY: ${{ secrets.STAGING_DEPLOY_KEY }}
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          mkdir site && tar -xf artifact.tar -C site && touch site/.nojekyll
+          rm -f site/CNAME # the custom domain belongs to production only
+          install -m 600 /dev/null ~/deploy_key && printf '%s\n' "$DEPLOY_KEY" > ~/deploy_key
+          cd site
+          git init -q -b gh-pages
+          git add -A
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -q -m "Version $VERSION ($GITHUB_SHA)"
+          GIT_SSH_COMMAND='ssh -i ~/deploy_key -o StrictHostKeyChecking=accept-new' \
+            git push -q --force git@github.com:<owner>/<repo>-staging.git gh-pages
+          echo "Version $VERSION is on staging: https://<owner>.github.io/<repo>-staging/" >> "$GITHUB_STEP_SUMMARY"
+
+  production:
+    needs: [build, staging]
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    # The run waits here for approval (required reviewer on this environment).
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
+      - run: echo "Version ${{ needs.build.outputs.version }} is live." >> "$GITHUB_STEP_SUMMARY"

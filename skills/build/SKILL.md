@@ -19,7 +19,7 @@ For each card:
 2. If it has state or timing, write down three to five edge cases first (repeat, restart, empty list, at the same time) and cover them in the tests.
 3. Build it with tests and show the proof the card asks for: the command and its output, or for something visible, `/verify` with its screenshot. Say "built" or "tested" only after every check the proof names has run green.
 4. Review with `/code-review` (one review may cover several small cards); for a large diff also `/simplify`.
-5. Commit, run the project's checks and push, without asking: the user's go on the card covers it, and the user approves on staging. In one update: card to On staging with the version, its tasks ticked, and a note of what is still open.
+5. Commit, run the project's checks and push, without asking: the user's go on the card covers it, and the user approves on staging. In one update: card to On staging with the version, its tasks ticked, and a note of what is still open; for a card that is an issue, also the comment the Board section asks for.
 
 Stop on a card and ask the user when a taste choice is still open, when it brings something new to look at (a design, an image, an animation) that the user hasn't seen, after two failed attempts, or before anything irreversible or paid. The other cards go on.
 

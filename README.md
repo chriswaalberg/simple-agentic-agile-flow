@@ -30,8 +30,8 @@ Only you move cards to Ready to build and to Done. The flow follows Anthropic's 
 
 | Skill | Start with | What it does |
 |---|---|---|
-| `setup` | `/simple-agentic-agile-flow:setup` | Creates the board (GitHub Projects or Notion), the Board section in `CLAUDE.md`, and optionally a pre-push hook for your checks. |
-| `grill` | "grill <card>", "grill the inbox", or a new idea | Asks you questions in rounds, each with a recommended answer, until the card is a spec. On your go it moves to Specified. |
+| `setup` | `/simple-agentic-agile-flow:setup` | Creates the board (GitHub Projects or Notion), the Board section in `CLAUDE.md`, and optionally a pre-push hook for your checks. No staging yet? It proposes a private staging repo on GitHub Pages, with approval before going live. |
+| `grill` | "grill <card>", "grill the inbox", or a new idea | Asks you questions in rounds, each with a recommended answer, until the card is a spec. On your go it moves to Specified. Open GitHub issues are a second inbox; whoever filed one sees the progress in the issue. |
 | `build` | "build" | Builds every card in Ready to build, top to bottom: tests, review, push, card to On staging. Skips a card that waits on a choice from you. |
 
 ## Requirements
