@@ -10,21 +10,14 @@ Only you move cards to Ready to build and to Done. The flow follows Anthropic's 
 
 ## Get started
 
-1. Add the marketplace:
+1. Install the plugin once, for yourself:
 
    ```
    /plugin marketplace add chriswaalberg/simple-agentic-agile-flow
-   ```
-
-2. Install the plugin, for all your projects:
-
-   ```
    /plugin install simple-agentic-agile-flow@simple-agentic-agile-flow
    ```
 
-   Or for one project: add `--scope project` and commit the `.claude/settings.json` it creates. Then every checkout and worktree of that project has the plugin.
-
-3. In each project where you want the flow, start a new session and run `/simple-agentic-agile-flow:setup`. It creates the board and a Board section in `CLAUDE.md`. `grill` and `build` only work in projects with that section.
+2. In each project where you want the flow, start a new session and run `/simple-agentic-agile-flow:setup`. It creates the board and a Board section in `CLAUDE.md`. `grill` and `build` only work in projects with that section.
 
 ## Skills
 
